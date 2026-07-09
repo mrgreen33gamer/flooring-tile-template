@@ -45,36 +45,42 @@ export default function HomePage() {
       title: "Hardwood Flooring",
       body: "Solid and engineered hardwood installation, sand-and-finish refinishing on existing floors. We match species, stain, and sheen to your home.",
       link: "/services/hardwood-flooring-installation-refinishing",
+      image: "/pages/home/services/hardwood.jpg",
     },
     {
       icon: faBorderAll,
       title: "Tile & Stone",
       body: "Porcelain, ceramic, and natural stone for kitchens, baths, and showers — precise layout, clean grout lines, built to last in Texas humidity.",
       link: "/services/tile-stone-installation",
+      image: "/pages/home/services/tile.jpg",
     },
     {
       icon: faWater,
       title: "Luxury Vinyl Plank",
       body: "100% waterproof LVP installation for kitchens, baths, and busy households — realistic wood and stone looks that shrug off moisture and pets.",
       link: "/services/luxury-vinyl-plank-flooring",
+      image: "/pages/home/services/lvp.jpg",
     },
     {
       icon: faRug,
       title: "Carpet Installation",
       body: "Plush, Berber, and pet-friendly carpet with proper padding and stretch — clean seams, no ripples, done in a day for most rooms.",
       link: "/services/carpet-installation-replacement",
+      image: "/pages/home/services/carpet.jpg",
     },
     {
       icon: faBuilding,
       title: "Commercial Flooring",
       body: "Low-disruption install and phased scheduling for offices, retail, and restaurants. Durable commercial-grade materials built for foot traffic.",
       link: "/services/commercial-flooring-solutions",
+      image: "/pages/home/services/commercial.jpg",
     },
     {
       icon: faScrewdriverWrench,
       title: "Repair & Restoration",
       body: "Water damage, scratches, buckling, loose tile — we repair and restore existing floors instead of a full tear-out whenever possible.",
       link: "/services/flooring-repair-restoration",
+      image: "/pages/home/services/repair.jpg",
     },
   ];
 
@@ -208,112 +214,58 @@ export default function HomePage() {
     { icon: faUsers,         label: "Locally Owned",        sub: "Since 2011" },
   ];
 
+  // Showroom rhythm: services → process → proof → CTA → form last
   return (
     <main className={styles.pageWrapper}>
-
-      {/* 1. Hero */}
       <WelcomePage />
-
-      {/* 2. Scrolling trust strip — immediately after hero */}
       <TrustBar
         headline="Waco's trusted flooring company — licensed, insured, and warrantied on every job"
       />
-
-      {/* 3. Impact metrics — build credibility before pitching services */}
-      <div className={styles.section}>
-        <ImpactMetrics
-          title="Numbers That Speak for Us"
-          metrics={metrics}
-          cityName="Waco"
-        />
-      </div>
-
-      {/* 4. Services grid */}
       <div className={styles.section}>
         <ServiceCardComponent
           heading="Complete Flooring Services for Your Home"
           cards={services}
         />
       </div>
-
-      {/* 5. Why Choose Us */}
       <div className={styles.section}>
-        <WhyChooseUs
-          cityName="Waco"
-          features={whyFeatures}
-          title="What Makes Heritage Different"
-        />
+        <WhyChooseUs cityName="Waco" features={whyFeatures} title="What Makes Heritage Different" />
       </div>
-
-      {/* 14. Contact form — final conversion point */}
-      <div className={styles.section}>
-        <Variant4
-          title="Request Service or a Free Quote"
-          cityName="Waco"
-          slug="/"
-          spot="homepage-contact-form"
-          formVariant={2}
-        />
-      </div>
-
-      {/* 7. How it works — process after the CTA so urgency is set */}
       <div className={styles.section}>
         <ProcessTimeline steps={processSteps} />
       </div>
-
-      {/* 8. Social proof — reviews before the guarantee promise */}
+      <div className={styles.section}>
+        <ImpactMetrics title="Numbers That Speak for Us" metrics={metrics} cityName="Waco" />
+      </div>
       <div className={styles.section}>
         <Testimonials testimonials={reviews} />
       </div>
-
-      {/* 9. Guarantee — peer validation already done, now make the promise */}
       <div className={styles.section}>
         <GuaranteeSection />
       </div>
-
-      {/* 6. Mid-page CTA — emergency hook before process details */}
       <CTABanner
-        headline="Ready to Replace Your Floors? Get a Free Estimate."
-        subline="Free in-home estimates across Waco, Hewitt, Woodway, Temple, and all of Central Texas. Flat-rate pricing. 5-Year Workmanship Warranty."
+        headline="Ready for Floors You'll Love?"
+        subline="Hardwood, tile, LVP, and carpet — showroom guidance and install crews who protect your home."
         primaryText="Call (254) 715-3900"
         primaryLink="tel:+12547153900"
-        secondaryText="Book Online"
+        secondaryText="Visit Materials"
         secondaryLink="/contact"
-      />
-
-
-      {/* 10. Service areas */}
+        imageSrc="/pages/home/welcome/hero-main.jpg"
+       />
       <div className={styles.section}>
-        <LocalServiceAreas
-          cityName="Waco"
-          areas={localAreas}
-          servicePath=""
-          title="Serving All of Central Texas"
-        />
+        <LocalServiceAreas cityName="Waco" areas={localAreas} servicePath="" title="Serving All of Central Texas" />
       </div>
-
-      {/* 11. What to expect (detail reassurance — lower in page) */}
       <div className={styles.section}>
-        <WhatToExpect
-          sectionTitle="Every Service Call, Every Time"
-          expectations={expectations}
-        />
+        <WhatToExpect sectionTitle="Every Service Call, Every Time" expectations={expectations} />
       </div>
-
-      {/* 12. FAQ */}
       <div className={styles.section}>
-        <FAQ
-          cityName="Waco"
-          faq={faq}
-          title="Flooring Questions — Answered Straight"
-        />
+        <FAQ cityName="Waco" faq={faq} title="Flooring Questions — Answered Straight" />
       </div>
-
-      {/* 13. Blog preview — educational content before the final form */}
       <div className={styles.section}>
         <BlogPreviewGrid />
       </div>
-
+      <div className={styles.section}>
+        <Variant4 title="Request Service or a Free Quote" cityName="Waco" slug="/" spot="homepage-contact-form" formVariant={2} />
+      </div>
     </main>
   );
 }

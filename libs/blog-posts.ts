@@ -19,7 +19,7 @@ const ALL_POSTS: BlogPost[] = [
     category: 'Replacement',
     date:     'April 18, 2026',
     readTime: 7,
-    imageSrc: '/pages/blogs/ac-replacement.jpg',
+    imageSrc: '/pages/blogs/hardwood-guide.jpg',
     imageAlt: 'Signs your flooring needs replacing in Waco TX',
     featured: true,
   },
@@ -30,7 +30,7 @@ const ALL_POSTS: BlogPost[] = [
     category: 'Tile',
     date:     'April 14, 2026',
     readTime: 6,
-    imageSrc: '/pages/blogs/hvac-filter.jpg',
+    imageSrc: '/pages/blogs/hardwood-guide.jpg',
     imageAlt: 'Choosing tile for Central Texas humidity and homes',
   },
   {
@@ -40,7 +40,7 @@ const ALL_POSTS: BlogPost[] = [
     category: 'Comparison',
     date:     'April 10, 2026',
     readTime: 8,
-    imageSrc: '/pages/blogs/heat-pump.jpg',
+    imageSrc: '/pages/blogs/lvp-vs-wood.jpg',
     imageAlt: 'Hardwood vs LVP comparison for Waco Texas homes',
   },
 ];
