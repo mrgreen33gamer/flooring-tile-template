@@ -12,48 +12,51 @@ import styles from './styles.module.scss';
 function MaterialsMosaic({
   materials,
 }: {
-  materials: Array<{ name: string; swatch: string; imageSrc?: string }>;
+  materials: Array<{ name: string; swatch: string; imageSrc?: string; grade?: string }>;
 }) {
-  // Mosaic span classes for visual interest (cycle pattern)
-  const spanClass = (i: number) => {
-    const mod = i % 6;
-    if (mod === 0) return styles.tileWide;
-    if (mod === 3) return styles.tileTall;
-    return '';
-  };
-
   return (
-    <div className={styles.mosaic} role="list" aria-label="Material samples">
-      {materials.map((m, i) => (
-        <motion.div
-          key={`${m.name}-${i}`}
-          className={`${styles.tile} ${spanClass(i)}`}
-          role="listitem"
-          initial={{ opacity: 0, y: 18, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{
-            duration: 0.45,
-            delay: 0.35 + i * 0.07,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-        >
-          <div
-            className={styles.tileFace}
-            style={{ backgroundColor: m.swatch }}
+    <div className={styles.sampleBoard} role="list" aria-label="Flooring material samples">
+      <div className={styles.boardHeader} aria-hidden="true">
+        <span className={styles.boardTitle}>Showroom Board</span>
+        <span className={styles.boardMeta}>6 finishes · in stock</span>
+      </div>
+      <div className={styles.mosaic}>
+        {materials.map((m, i) => (
+          <motion.div
+            key={`${m.name}-${i}`}
+            className={`${styles.tile} ${i === 0 || i === 3 ? styles.tileFeature : ''}`}
+            role="listitem"
+            initial={{ opacity: 0, y: 18, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 0.45,
+              delay: 0.35 + i * 0.07,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           >
-            {m.imageSrc ? (
-              <img
-                src={m.imageSrc}
-                alt=""
-                className={styles.tileImage}
-                draggable={false}
-              />
-            ) : null}
-            <div className={styles.tileOverlay} aria-hidden="true" />
-          </div>
-          <span className={styles.tileName}>{m.name}</span>
-        </motion.div>
-      ))}
+            <div
+              className={styles.tileFace}
+              style={{ backgroundColor: m.swatch }}
+            >
+              {m.imageSrc ? (
+                <img
+                  src={m.imageSrc}
+                  alt=""
+                  className={styles.tileImage}
+                  draggable={false}
+                />
+              ) : null}
+              <div className={styles.grainOverlay} aria-hidden="true" />
+              <div className={styles.tileOverlay} aria-hidden="true" />
+              <span className={styles.swatchChip} style={{ backgroundColor: m.swatch }} />
+            </div>
+            <div className={styles.tileMeta}>
+              <span className={styles.tileName}>{m.name}</span>
+              {m.grade ? <span className={styles.tileGrade}>{m.grade}</span> : null}
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -110,12 +113,12 @@ const mapPins = [
 ];
 const coverageLabel = 'Central Texas coverage';
 const materials = [
-  { name: "White Oak", swatch: "#c4a574", imageSrc: "/pages/home/welcome/mat-1.jpg" },
-  { name: "Porcelain", swatch: "#d4d4d4", imageSrc: "/pages/home/welcome/mat-2.jpg" },
-  { name: "LVP", swatch: "#8b7355", imageSrc: "/pages/home/welcome/mat-3.jpg" },
-  { name: "Wool Carpet", swatch: "#e8e0d5", imageSrc: "/pages/home/welcome/mat-1.jpg" },
-  { name: "Natural Stone", swatch: "#a8a29e", imageSrc: "/pages/home/welcome/mat-2.jpg" },
-  { name: "Walnut", swatch: "#5c4033", imageSrc: "/pages/home/welcome/mat-3.jpg" }
+  { name: "White Oak", swatch: "#c4a574", imageSrc: "/pages/home/welcome/mat-oak.jpg", grade: "Hardwood" },
+  { name: "Porcelain", swatch: "#d4d4d4", imageSrc: "/pages/home/welcome/mat-tile.jpg", grade: "Tile" },
+  { name: "LVP Plank", swatch: "#8b7355", imageSrc: "/pages/home/welcome/mat-lvp.jpg", grade: "Waterproof" },
+  { name: "Wool Carpet", swatch: "#e8e0d5", imageSrc: "/pages/home/welcome/mat-carpet.jpg", grade: "Soft" },
+  { name: "Natural Stone", swatch: "#a8a29e", imageSrc: "/pages/home/welcome/mat-stone.jpg", grade: "Stone" },
+  { name: "Walnut", swatch: "#5c4033", imageSrc: "/pages/home/welcome/mat-walnut.jpg", grade: "Premium" }
 ];
 const quote = "They helped us pick LVP that looks like oak and installed room-by-room without wrecking the house.";
 const authorName = "Dana & Eli";
