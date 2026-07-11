@@ -38,7 +38,7 @@ const personSchema = {
 
 const AuthorBio: React.FC<AuthorBioProps> = ({
   cityName,
-  imageSrc = "/pages/seo-template-resources/owner.jpg",
+  imageSrc = "/pages/home/welcome/hero-main.jpg",
   imageAlt = "Daniel Whitfield - Founder of Heritage Flooring & Tile Co.",
 }) => {
   const trackEvent = useTrackEvent();
