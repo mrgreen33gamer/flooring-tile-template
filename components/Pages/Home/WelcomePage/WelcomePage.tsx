@@ -1,148 +1,61 @@
-// _archetype-library/hero-d-materials-grid/Component.tsx
-//
-// Hero D: Materials Grid — left copy, right mosaic of material swatches.
-// Color tiles from materials[].swatch + name; optional imageSrc; staggered reveal.
+// Heritage Flooring & Tile — Hero (craft showroom: walnut timber & gold oak)
+// Photographic parallax stage + an authentic installer card replaces the
+// abstract materials mosaic. Real imagery, gold-oak detailing, Playfair headline.
+// Photos live in /public/pages/home/welcome and ship with the template.
 'use client';
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 import { PhoneIcon, ChevronIcon, CheckIcon } from './_shared/icons';
 import styles from './styles.module.scss';
 
-function MaterialsMosaic({
-  materials,
-}: {
-  materials: Array<{ name: string; swatch: string; imageSrc?: string; grade?: string }>;
-}) {
-  return (
-    <div className={styles.sampleBoard} role="list" aria-label="Flooring material samples">
-      <div className={styles.boardHeader} aria-hidden="true">
-        <span className={styles.boardTitle}>Showroom Board</span>
-        <span className={styles.boardMeta}>6 finishes · in stock</span>
-      </div>
-      <div className={styles.mosaic}>
-        {materials.map((m, i) => (
-          <motion.div
-            key={`${m.name}-${i}`}
-            className={`${styles.tile} ${i === 0 || i === 3 ? styles.tileFeature : ''}`}
-            role="listitem"
-            initial={{ opacity: 0, y: 18, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 0.45,
-              delay: 0.35 + i * 0.07,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            <div
-              className={styles.tileFace}
-              style={{ backgroundColor: m.swatch }}
-            >
-              {m.imageSrc ? (
-                <img
-                  src={m.imageSrc}
-                  alt=""
-                  className={styles.tileImage}
-                  draggable={false}
-                />
-              ) : null}
-              <div className={styles.grainOverlay} aria-hidden="true" />
-              <div className={styles.tileOverlay} aria-hidden="true" />
-              <span className={styles.swatchChip} style={{ backgroundColor: m.swatch }} />
-            </div>
-            <div className={styles.tileMeta}>
-              <span className={styles.tileName}>{m.name}</span>
-              {m.grade ? <span className={styles.tileGrade}>{m.grade}</span> : null}
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function WelcomePage() {
-const badgeText = 'Waco\'s Most Trusted Flooring Company — Since 2011';
-const headlineLines = [
-  'Floors Done.',
-  'Done Right.',
-];
-const headlineAccent = 'Heritage.';
-const subheadline = 'Free in-home estimates. Flat-rate pricing. 5-Year Workmanship Warranty on every install. Serving Waco and Central Texas with licensed, NWFA-certified installers.';
-const primaryCta = { label: 'Call (254) 715-3900', href: 'tel:+12547153900' };
-const secondaryCta = { label: 'Free Estimate', href: '/contact' };
-const chips = [
-  'Free Estimates',
-  'No Hidden Fees',
-  'NWFA Certified',
-  '15+ Yrs Local',
-  '5-Yr Warranty',
-];
-const stats = [
-  {
-    "value": "1,800+",
-    "label": "Floors Installed"
-  },
-  {
-    "value": "4.9 ★",
-    "label": "Google Rating"
-  },
-  {
-    "value": "5-Year",
-    "label": "Workmanship Warranty"
-  },
-  {
-    "value": "Free",
-    "label": "In-Home Estimates"
-  }
-];
-const meterTarget = 72;
-const meterTopLabel = "Featured";
-const meterMidLabel = "Popular";
-const meterBotLabel = "Classic";
-const particleColor = '#16def9';
-const beforeImageSrc = '/pages/blogs/ac-replacement.jpg';
-const afterImageSrc = '/pages/blogs/energy-savings.jpg';
-const beforeLabel = "Worn floors";
-const afterLabel = "New install";
-const mapCenterLabel = 'Service HQ';
-const mapPins = [
-  { label: 'Waco', x: 42, y: 48 },
-  { label: 'Temple', x: 68, y: 62 },
-  { label: 'Killeen', x: 58, y: 72 },
-];
-const coverageLabel = 'Central Texas coverage';
-const materials = [
-  { name: "White Oak", swatch: "#c4a574", imageSrc: "/pages/home/welcome/mat-oak.jpg", grade: "Hardwood" },
-  { name: "Porcelain", swatch: "#d4d4d4", imageSrc: "/pages/home/welcome/mat-tile.jpg", grade: "Tile" },
-  { name: "LVP Plank", swatch: "#8b7355", imageSrc: "/pages/home/welcome/mat-lvp.jpg", grade: "Waterproof" },
-  { name: "Wool Carpet", swatch: "#e8e0d5", imageSrc: "/pages/home/welcome/mat-carpet.jpg", grade: "Soft" },
-  { name: "Natural Stone", swatch: "#a8a29e", imageSrc: "/pages/home/welcome/mat-stone.jpg", grade: "Stone" },
-  { name: "Walnut", swatch: "#5c4033", imageSrc: "/pages/home/welcome/mat-walnut.jpg", grade: "Premium" }
-];
-const quote = "They helped us pick LVP that looks like oak and installed room-by-room without wrecking the house.";
-const authorName = "Dana & Eli";
-const authorMeta = "Whole-home floors · Georgetown";
-const rating = 5;
-const schematicLabel = "Heritage Flooring schematic";
-const gauges = [
-  { label: "Installs", value: "1,800+" },
-  { label: "Rating", value: "4.9 ★" },
-  { label: "Materials", value: "In stock" },
-  { label: "Warranty", value: "Labor + mfr" }
-];
-const toggles = [
-  { label: "Showroom open", on: true },
-  { label: "Samples ready", on: true },
-  { label: "Install crews", on: true }
-];
-const textureSrc = '/pages/blogs/ac-replacement.jpg';
-const textureAlt = 'Texture';
-const accentWord = "Heritage";
+  const reduceMotion = useReducedMotion();
+  const heroRef = useRef<HTMLElement>(null);
+
+  // Scroll-linked parallax on the background photo. Disabled under reduced-motion.
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', reduceMotion ? '0%' : '16%']);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1.08, reduceMotion ? 1.08 : 1.16]);
+
+  const badgeText = 'Waco\'s Most Trusted Flooring Company — Since 2011';
+  const headlineLines = ['Floors Done.', 'Done Right.'];
+  const headlineAccent = 'Heritage.';
+  const subheadline =
+    'Free in-home estimates. Flat-rate pricing. 5-Year Workmanship Warranty on every install. Serving Waco and Central Texas with licensed, NWFA-certified installers.';
+  const primaryCta = { label: 'Call (254) 715-3900', href: 'tel:+12547153900' };
+  const secondaryCta = { label: 'Free Estimate', href: '/contact' };
+  const chips = [
+    'Free Estimates',
+    'No Hidden Fees',
+    'NWFA Certified',
+    '15+ Yrs Local',
+    '5-Yr Warranty',
+  ];
 
   return (
-    <section className={styles.hero} aria-label="Hero">
-      <div className={styles.shard} aria-hidden="true" />
+    <section ref={heroRef} className={styles.hero} aria-label="Hero">
+      {/* Photographic parallax background — real tile-installation scene */}
+      <motion.div
+        className={styles.bgLayer}
+        style={{ y: bgY, scale: bgScale }}
+        aria-hidden="true"
+      >
+        <Image
+          src="/pages/home/welcome/hero-parallax-bg.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className={styles.bgImage}
+        />
+      </motion.div>
+      {/* Warm walnut scrim keeps the headline legible and on-brand */}
+      <div className={styles.scrim} aria-hidden="true" />
 
       <div className={styles.layout}>
         <div className={styles.content}>
@@ -205,13 +118,38 @@ const accentWord = "Heritage";
           </motion.div>
         </div>
 
+        {/* Authentic installer photo — the ownable image, framed as a spec card */}
         <motion.div
           className={styles.visual}
-          initial={{ opacity: 0, x: 24 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.2, ease: 'easeOut' }}
         >
-          <MaterialsMosaic materials={materials} />
+          <div className={styles.photoCard}>
+            <Image
+              src="/pages/home/welcome/hero-installer-card.jpg"
+              alt="Flooring installer fitting hardwood planks during a home floor installation"
+              fill
+              priority
+              sizes="(max-width: 960px) 88vw, 460px"
+              className={styles.photo}
+            />
+            <div className={styles.photoGlaze} aria-hidden="true" />
+
+            <div className={styles.photoBadge}>
+              <span className={styles.photoBadgeDot} />
+              NWFA-Certified Installer · On-Site
+            </div>
+
+            <div className={styles.specCard}>
+              <span className={styles.specRow}>
+                <CheckIcon size={10} /> Free in-home estimates
+              </span>
+              <span className={styles.specRow}>
+                <CheckIcon size={10} /> 5-Year workmanship warranty
+              </span>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -1,5 +1,6 @@
-// Hero D — Materials Grid mosaic
-// @use path assumes adaptation into components/Pages/Home/WelcomePage/
+// Heritage Flooring & Tile — Hero (craft showroom: walnut timber & gold oak)
+// Photographic parallax stage + authentic installer card. Playfair headline,
+// gold-oak detailing, walnut scrim. Photo card shows on every breakpoint.
 @use '../../../../src/app/globalVariables.scss' as *;
 
 .hero {
@@ -7,562 +8,354 @@
   min-height: 100svh;
   background: $obsidian;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
 
-  &::before {
+  // Fine grain / tooth so the dark reads as material, not flat black.
+  // Sits above the photo + scrim, below the content.
+  &::after {
     content: '';
-    position: absolute; inset: 0;
-    background-image: repeating-linear-gradient(
-      -55deg, transparent, transparent 22px,
-      rgba($white, 0.012) 22px, rgba($white, 0.012) 23px
-    );
-    pointer-events: none; z-index: 0;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.4;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   }
 }
 
-.shard {
-  position: absolute; top: 0; right: 0;
-  width: 48%; height: 100%;
-  background: linear-gradient(135deg, transparent 0%, rgba($orange, 0.025) 40%, rgba($orange, 0.055) 100%);
-  clip-path: polygon(26% 0%, 100% 0%, 100% 100%, 0% 100%);
-  pointer-events: none; z-index: 1;
+// ── Photographic parallax background ──────────────────────────────────────────
+.bgLayer {
+  position: absolute;
+  top: -8%;
+  left: 0;
+  width: 100%;
+  height: 116%;
+  z-index: 0;
+  will-change: transform;
+}
+
+.bgImage {
+  object-fit: cover;
+  object-position: center 45%;
+}
+
+// Warm walnut scrim — keeps the tile-work photo on-brand and the headline legible.
+// Darker on the left (text column), lighter on the right (photo card).
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 82% 16%, rgba(161, 98, 7, 0.22) 0%, rgba(161, 98, 7, 0) 55%),
+    radial-gradient(90% 80% at 10% 94%, rgba(113, 63, 18, 0.26) 0%, rgba(113, 63, 18, 0) 60%),
+    linear-gradient(100deg, rgba(20, 14, 10, 0.95) 0%, rgba(24, 17, 12, 0.82) 42%, rgba(28, 20, 16, 0.5) 74%, rgba(28, 20, 16, 0.36) 100%),
+    linear-gradient(180deg, rgba(20, 14, 10, 0.35) 0%, rgba(20, 14, 10, 0) 32%, rgba(20, 14, 10, 0.55) 100%);
 }
 
 .layout {
-  position: relative; z-index: 2;
-  max-width: 1380px; margin: 0 auto;
-  padding: clamp(6rem, 11vh, 9rem) clamp(1.5rem, 5vw, 5rem) clamp(5rem, 9vh, 7rem);
+  position: relative;
+  z-index: 3;
+  max-width: 1380px;
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(6rem, 11vh, 9rem) clamp(1.5rem, 5vw, 5rem) clamp(4rem, 8vh, 6rem);
   display: grid;
-  grid-template-columns: minmax(0, 520px) 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 460px);
   gap: clamp(2rem, 4vw, 4.5rem);
   align-items: center;
 
   @media (max-width: 960px) {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 2.75rem;
-    padding: clamp(5rem, 9vh, 7rem) 1.5rem clamp(4rem, 7vh, 6rem);
+    gap: 2.5rem;
   }
 }
 
 .content {
-  display: flex; flex-direction: column; gap: 1.5rem;
-  @media (max-width: 960px) { align-items: center; }
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  @media (max-width: 960px) {
+    align-items: center;
+  }
 }
 
 .badge {
-  display: inline-flex; align-items: center; gap: 0.55rem;
-  font-family: $textFont; font-size: 0.72rem; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba($orange, 0.9);
-  border: 1px solid rgba($orange, 0.28); background: rgba($orange, 0.07);
-  border-radius: 9999px; padding: 0.35rem 0.95rem; width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: $headerFont;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $lightorange;
+  border: 1px solid rgba($orange, 0.42);
+  background: rgba($orange, 0.09);
+  border-radius: $radius-pill;
+  padding: 0.42rem 1.05rem;
+  width: fit-content;
 }
 
 .badgeDot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: $orange; box-shadow: 0 0 8px rgba($orange, 0.8);
-  animation: pulse 2.4s ease-in-out infinite; flex-shrink: 0;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.4; transform: scale(0.72); }
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: $orange;
+  box-shadow: 0 0 8px 1px rgba($orange, 0.75);
+  flex-shrink: 0;
 }
 
 .headline {
   font-family: $titleFont;
-  font-size: clamp(2.6rem, 5.2vw, 5rem);
-  font-weight: 800; line-height: 0.95;
-  letter-spacing: -0.02em; color: $white; margin: 0;
+  font-size: clamp(2.8rem, 5.2vw, 5rem);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: -0.01em;
+  color: $offwhite;
+  margin: 0;
+  text-wrap: balance;
 }
 
-.accentLine { color: $orange; }
+.accentLine {
+  color: $lightorange;
+  // subtle gold-oak gradient on the accent word
+  background: linear-gradient(92deg, #E0B654 0%, #CA8A04 55%, #A16207 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 .sub {
-  font-family: $textFont; font-size: clamp(1rem, 1.4vw, 1.15rem);
-  line-height: 1.55; color: rgba($white, 0.62); max-width: 34rem; margin: 0;
-  @media (max-width: 960px) { max-width: 28rem; }
+  font-family: $textFont;
+  font-size: clamp(1.02rem, 1.2vw, 1.15rem);
+  line-height: 1.65;
+  color: rgba(250, 246, 240, 0.76);
+  max-width: 36rem;
+  margin: 0;
+  @media (max-width: 960px) {
+    max-width: 36ch;
+  }
 }
 
 .ctaRow {
-  display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;
-  @media (max-width: 960px) { justify-content: center; }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: center;
+  margin-top: 0.6rem;
+  @media (max-width: 960px) {
+    justify-content: center;
+  }
 }
 
 .ctaPrimary {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  font-family: $headerFont; font-size: 0.92rem; font-weight: 700;
-  color: $obsidian; background: $orange; text-decoration: none;
-  padding: 0.85rem 1.35rem; border-radius: 8px;
-  transition: background 0.18s, transform 0.16s;
-  &:hover { background: $lightorange; transform: translateY(-1px); }
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: $headerFont;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: $obsidian;
+  background: linear-gradient(180deg, #CA8A04 0%, #A16207 100%);
+  text-decoration: none;
+  padding: 0.95rem 1.7rem;
+  border-radius: $radius-md;
+  box-shadow: 0 1px 0 rgba(255, 240, 210, 0.4) inset, 0 12px 26px rgba(161, 98, 7, 0.3);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  &:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+    box-shadow: 0 1px 0 rgba(255, 240, 210, 0.5) inset, 0 16px 34px rgba(161, 98, 7, 0.4);
+  }
 }
 
 .ctaSecondary {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  font-family: $headerFont; font-size: 0.92rem; font-weight: 700;
-  color: rgba($white, 0.85); text-decoration: none;
-  padding: 0.85rem 1.2rem; border-radius: 8px;
-  border: 1px solid rgba($white, 0.14);
-  transition: border-color 0.18s, background 0.18s;
-  &:hover { border-color: rgba($white, 0.28); background: rgba($white, 0.04); }
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: $headerFont;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(250, 246, 240, 0.9);
+  text-decoration: none;
+  padding: 0.95rem 1.3rem;
+  border-radius: $radius-md;
+  border: 1px solid rgba(250, 246, 240, 0.22);
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
+  &:hover {
+    border-color: rgba($orange, 0.6);
+    color: $offwhite;
+    background: rgba(250, 246, 240, 0.04);
+  }
 }
 
 .chips {
-  display: flex; flex-wrap: wrap; gap: 0.5rem;
-  @media (max-width: 960px) { justify-content: center; }
-}
-
-.chip {
-  display: inline-flex; align-items: center; gap: 0.35rem;
-  font-family: $textFont; font-size: 0.72rem; font-weight: 600;
-  letter-spacing: 0.04em; text-transform: uppercase;
-  color: rgba($white, 0.55);
-  padding: 0.35rem 0.7rem; border-radius: 999px;
-  border: 1px solid rgba($white, 0.08); background: rgba($white, 0.03);
-  svg { color: rgba($orange, 0.8); }
-}
-
-.visual {
-  position: relative;
-  width: 100%;
-  min-height: 280px;
-}
-
-// ── Flooring showroom sample board ─────────────────────────────────────────
-
-.sampleBoard {
-  width: 100%;
-  max-width: 640px;
-  margin-left: auto;
-  padding: 0.9rem;
-  border-radius: 8px;
-  background:
-    linear-gradient(145deg, rgba(72, 48, 28, 0.35) 0%, rgba(22, 16, 12, 0.96) 55%),
-    $obsidian;
-  border: 1px solid rgba($orange, 0.22);
-  // Wood-edge sample board chrome
-  outline: 4px solid rgba(96, 64, 36, 0.7);
-  outline-offset: 3px;
-  box-shadow:
-    0 0 0 1px rgba($orange, 0.1),
-    0 24px 48px rgba(0, 0, 0, 0.42),
-    inset 0 1px 0 rgba($white, 0.08),
-    inset 0 -3px 8px rgba(0, 0, 0, 0.35);
-
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
   @media (max-width: 960px) {
-    margin: 0 auto;
-    max-width: 480px;
-  }
-}
-
-.boardHeader {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-  padding: 0 0.15rem 0.55rem;
-  border-bottom: 1px solid rgba($white, 0.08);
-}
-
-.boardTitle {
-  font-family: $headerFont;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba($white, 0.9);
-}
-
-.boardMeta {
-  font-family: $textFont;
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgba($orange, 0.85);
-}
-
-.mosaic {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: minmax(132px, 1fr);
-  gap: 0.65rem;
-  width: 100%;
-
-  @media (max-width: 480px) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: minmax(110px, 1fr);
-  }
-}
-
-.tile {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
-  overflow: hidden;
-  border: 1px solid rgba($white, 0.14);
-  background: rgba($white, 0.03);
-  min-height: 132px;
-  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-  // Sample-chip bevel
-  box-shadow:
-    inset 0 1px 0 rgba($white, 0.12),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.35),
-    0 3px 10px rgba(0, 0, 0, 0.25);
-
-  &:hover {
-    border-color: rgba($orange, 0.5);
-    transform: translateY(-2px);
-    box-shadow:
-      0 14px 28px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba($orange, 0.2);
-  }
-}
-
-.tileFeature {
-  grid-column: span 2;
-  min-height: 168px;
-
-  @media (max-width: 480px) {
-    grid-column: span 1;
-    min-height: 132px;
-  }
-}
-
-.tileFace {
-  position: relative;
-  flex: 1;
-  min-height: 96px;
-  overflow: hidden;
-}
-
-.tileImage {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  filter: saturate(1.05) contrast(1.05);
-}
-
-.grainOverlay {
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(
-      95deg,
-      transparent,
-      transparent 3px,
-      rgba($white, 0.03) 3px,
-      rgba($white, 0.03) 4px
-    );
-  mix-blend-mode: soft-light;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.tileOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    transparent 35%,
-    rgba($obsidian, 0.45) 100%
-  );
-  pointer-events: none;
-  z-index: 1;
-}
-
-.swatchChip {
-  position: absolute;
-  top: 0.45rem;
-  right: 0.45rem;
-  z-index: 2;
-  width: 18px;
-  height: 18px;
-  border-radius: 3px;
-  border: 2px solid rgba($white, 0.85);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-}
-
-.tileMeta {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.35rem;
-  padding: 0.4rem 0.55rem 0.48rem;
-  background: rgba($obsidian, 0.78);
-  border-top: 1px solid rgba($white, 0.08);
-}
-
-.tileName {
-  font-family: $textFont;
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: rgba($white, 0.92);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.tileGrade {
-  flex-shrink: 0;
-  font-family: $textFont;
-  font-size: 0.52rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: $obsidian;
-  background: $orange;
-  padding: 0.12rem 0.35rem;
-  border-radius: 2px;
-}
-
-.tileWide { /* legacy */ }
-.tileTall { /* legacy */ }
-
-/* === UNIQUENESS IDENTITY LAYER — flooring-tile-template === */
-/* Auto-generated visual identity so shared archetypes diverge per brand. */
-
-.hero {
-  min-height: 92svh !important;
-  height: auto !important;
-}
-
-.layout {
-  grid-template-columns: minmax(0, 1.02fr) 1fr !important;
-  gap: clamp(2.55rem, 4vw, 4.05rem) !important;
-  padding-top: clamp(7.73rem, 11vh, 9.73rem) !important;
-}
-
-.shard {
-  clip-path: polygon(28% 0%, 100% 0%, 100% 100%, 8% 100%) !important;
-  opacity: 0.71 !important;
-}
-
-.headline {
-  letter-spacing: 0.06em !important;
-  text-transform: uppercase !important;
-  font-weight: 600 !important;
-  transform: skewX(-0.5deg);
-}
-
-.badge {
-  border-radius: 16px !important;
-}
-
-.chip {
-  border-radius: 999px !important;
-}
-
-.ctaPrimary,
-.ctaSecondary {
-  border-radius: 12px !important;
-}
-
-.visual {
-  transform: scale(0.982);
-}
-
-.statCard,
-.console,
-.dialCard,
-.baFrame,
-.tile,
-.jobCard,
-.stripCard,
-.metricBar {
-  box-shadow: 0 24px 60px rgba(0,0,0,0.4) !important;
-}
-
-/* end identity layer */
-
-/* === HERO PATTERN UNIQUENESS — flooring-tile-template === */
-.hero {
-  &::before {
-    content: '' !important;
-    position: absolute !important;
-    inset: 0 !important;
-    background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba($white, 0.015) 3px, rgba($white, 0.015) 4px) !important;
-    background-size: auto !important;
-    opacity: 0.62 !important;
-    pointer-events: none !important;
-    z-index: 0 !important;
-  }
-
-  &::after {
-    content: '' !important;
-    position: absolute !important;
-    inset: 0 !important;
-    background-image: radial-gradient(ellipse 50% 40% at 68% 15%, rgba($orange, 0.096), transparent 70%), radial-gradient(ellipse 40% 50% at 97% 97%, rgba($white, 0.03), transparent 65%) !important;
-    pointer-events: none !important;
-    z-index: 0 !important;
-  }
-}
-/* end hero pattern */
-
-/* === MOBILE HERO FOLD SAFETY (fleet QA) === */
-@media (max-width: 640px) {
-  .hero,
-  .section,
-  .welcome {
-    min-height: 100svh;
-    height: auto !important;
-  }
-  .headline,
-  .title,
-  .heroTitle {
-    font-size: clamp(2.05rem, 9vw, 2.85rem) !important;
-    line-height: 1.05 !important;
-  }
-  .layout,
-  .heroInner,
-  .contentWrap {
-    gap: 1.25rem !important;
-    padding-bottom: 2rem !important;
-  }
-  .ctaRow,
-  .actions,
-  .heroCtas {
-    flex-wrap: wrap;
     justify-content: center;
   }
-  .visual,
-  .heroVisual,
-  .meter,
-  .statGrid {
-    min-height: 0 !important;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: $headerFont;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(250, 246, 240, 0.6);
+  padding: 0.35rem 0.7rem;
+  border-radius: $radius-pill;
+  border: 1px solid rgba(250, 246, 240, 0.1);
+  background: rgba(250, 246, 240, 0.03);
+  svg { color: rgba($orange, 0.9); }
+}
+
+// ── Authentic installer photo card (replaces the materials mosaic) ────────────
+.visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+}
+
+.photoCard {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 4 / 5;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  border: 1px solid rgba(224, 182, 84, 0.3);
+  box-shadow:
+    0 1px 0 rgba(255, 240, 210, 0.14) inset,
+    0 30px 60px -20px rgba(0, 0, 0, 0.7),
+    0 0 0 6px rgba(161, 98, 7, 0.07);
+}
+
+.photo {
+  object-fit: cover;
+  object-position: center;
+}
+
+// Gold-to-shadow glaze so the overlays stay readable and it reads as designed
+.photoGlaze {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(20, 14, 10, 0) 42%, rgba(20, 14, 10, 0.76) 100%),
+    linear-gradient(300deg, rgba(161, 98, 7, 0.18) 0%, rgba(161, 98, 7, 0) 46%);
+}
+
+.photoBadge {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: $headerFont;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $offwhite;
+  background: rgba(20, 14, 10, 0.64);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(224, 182, 84, 0.32);
+  border-radius: $radius-pill;
+  padding: 0.4rem 0.85rem;
+}
+
+.photoBadgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $lightorange;
+  box-shadow: 0 0 8px 1px rgba(224, 182, 84, 0.8);
+  flex-shrink: 0;
+}
+
+.specCard {
+  position: absolute;
+  left: 0.9rem;
+  right: 0.9rem;
+  bottom: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.85rem 1rem;
+  border-radius: $radius-md;
+  background: rgba(20, 14, 10, 0.62);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(224, 182, 84, 0.24);
+}
+
+.specRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: $headerFont;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(250, 246, 240, 0.94);
+
+  svg {
+    color: $lightorange;
+    flex-shrink: 0;
   }
 }
 
-/* === TABLET + MOBILE HERO VISUAL DEFER (fleet QA) === */
-/* Hide side dials/meters on tablet & phone so the hero fold stays clean */
 @media (max-width: 960px) {
-  .visual,
-  .heroVisual,
-  .meterWrap,
-  .rightCol,
-  .heroArt {
-    display: none !important;
+  .visual {
+    min-height: 0;
+    margin-top: 0.25rem;
+  }
+  .photoCard {
+    max-width: 400px;
+    aspect-ratio: 4 / 3;
   }
 }
 
-/* === MOBILE HERO COPY TIGHTEN (fleet QA) === */
 @media (max-width: 640px) {
-  .sub,
-  .heroSub,
-  .description {
-    font-size: 0.9rem !important;
-    line-height: 1.45 !important;
-    max-width: 34ch !important;
-  }
-  .chips {
-    display: none !important; /* trust chips below fold on phone — CTAs first */
-  }
-}
-
-/* === MOBILE SINGLE COLUMN FORCE (fleet QA) === */
-@media (max-width: 960px) {
-  .layout,
-  .heroLayout,
-  .grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-@media (max-width: 640px) {
-  .hero,
-  .section {
-    height: auto !important;
-    min-height: 100svh !important;
-    overflow: visible !important;
+  .hero {
+    min-height: 100svh;
+    height: auto;
   }
   .layout {
-    padding-top: 5rem !important;
-    padding-bottom: 2rem !important;
+    padding-top: 5.5rem;
+    padding-bottom: 2.5rem;
+    gap: 1.5rem;
   }
-}
-
-/* === MOBILE WELCOME STACK (fleet QA) === */
-/* Kill side-by-side hero chrome on phone: stack CTAs, rails, collages, dials */
-@media (max-width: 640px) {
-  .ctaRow,
-  .actions,
-  .heroCtas {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    width: 100% !important;
-    max-width: 22rem !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+  .headline {
+    font-size: clamp(2.2rem, 10vw, 3rem);
   }
-
+  .sub {
+    font-size: 0.95rem;
+  }
+  .ctaRow {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .ctaPrimary,
-  .ctaSecondary,
-  .ctaRow a,
-  .ctaRow button {
-    width: 100% !important;
-    justify-content: center !important;
-    box-sizing: border-box !important;
-  }
-
-  .jobRail,
-  .jobStrip,
-  .shotRail {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 0.65rem !important;
-    width: 100% !important;
-    max-width: 22rem !important;
-    margin: 0 auto !important;
-  }
-
-  .collageGrid,
-  .collage {
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto !important;
-    min-height: 0 !important;
-    max-width: 22rem !important;
-    width: 100% !important;
-  }
-
-  .tileMain,
-  .tileSide,
-  .tile {
-    grid-column: auto !important;
-    grid-row: auto !important;
-    min-height: 140px !important;
-  }
-
-  .plantDialGrid {
-    grid-template-columns: 1fr 1fr !important;
-    max-width: 100% !important;
-  }
-
-  .scanCard {
-    grid-template-columns: 1fr !important;
-    gap: 0.35rem !important;
-  }
-
-  .scanRight {
-    align-items: flex-start !important;
-  }
-
-  .materials,
-  .matGrid,
-  .swatchGrid {
-    grid-template-columns: 1fr 1fr !important;
-  }
-
-  .statGrid,
-  .statsRow {
-    grid-template-columns: 1fr 1fr !important;
+  .ctaSecondary {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
   }
 }
